@@ -1,0 +1,29 @@
+version: '3.0'
+
+services:
+  app:
+    restart: always
+    image: gb_java_hello:1.0
+    container_name: gb_app
+    networks:
+      - gb_net
+    ports:
+      - 8081:8080
+    depends_on:
+      - db
+    links:
+      - db
+  db:
+    restart: always
+    image: mongo:5.0.2
+    container_name: gb_db
+    ports:
+      - 27017:27017
+    volumes:
+      - /Users/dikkini/dev/repos/edu/geekbrains/java arch/java-hello-world/mongo_data:/data/db
+    networks:
+      - gb_net
+    
+
+networks:
+  gb_net:
